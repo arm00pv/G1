@@ -12,19 +12,44 @@
         <div class="cloud"></div>
         <div class="cloud"></div>
     </div>
-    <div id="game-container">
-        <h1>Click the Button!</h1>
-        <p>Click the button as many times as you can in 10 seconds.</p>
-        <button id="click-button">🚀</button>
-        <div id="stats">
-            <p>Time Left: <span id="timer">10</span></p>
-            <p>Score: <span id="score">0</span></p>
-            <p>High Score: <span id="high-score">0</span></p>
+
+    <div id="main-container">
+        <div id="highscore-container">
+            <h2>High Scores</h2>
+            <table id="highscore-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- High scores will be populated here by JS -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="game-container">
+            <div id="username-container">
+                <input type="text" id="username-input" placeholder="Enter your name">
+                <button id="save-username-button">Save</button>
+            </div>
+            <h1>Click the Button!</h1>
+            <p>Click the button as many times as you can in 10 seconds.</p>
+            <button id="click-button">🚀</button>
+            <div id="stats">
+                <p>Time Left: <span id="timer">10</span></p>
+                <p>Score: <span id="score">0</span></p>
+            </div>
+            <button id="reset-button">Reset</button>
         </div>
     </div>
+
     <div id="ad-placeholder">
         <p>Ad Placeholder</p>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
