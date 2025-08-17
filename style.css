@@ -1,18 +1,28 @@
 body {
     font-family: sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* To stack top ad and main content */
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     background-color: #87CEEB; /* Sky blue */
-    overflow: hidden; /* Hide clouds that move outside the screen */
+    overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+#top-banner-ad {
+    width: 100%;
+    background-color: #fafafa;
+    border-bottom: 2px dashed #ccc;
+    text-align: center;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
 #main-container {
     display: flex;
     align-items: flex-start;
     gap: 2rem;
+    margin-top: 2rem;
 }
 
 #game-container {
@@ -99,12 +109,12 @@ body {
 }
 
 #clouds {
-    position: absolute;
+    position: fixed; /* Changed to fixed to stay in viewport */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
+    z-index: -1; /* Behind all content */
 }
 
 .cloud {
@@ -283,12 +293,12 @@ body {
         height: auto;
         overflow: auto;
         padding: 1rem;
-        flex-direction: column;
     }
 
     #main-container {
         flex-direction: column;
         align-items: center;
+        margin-top: 1rem;
     }
 
     #ad-placeholder {
