@@ -9,6 +9,15 @@ body {
     overflow: hidden; /* Hide clouds that move outside the screen */
 }
 
+#top-banner-ad {
+    width: 100%;
+    min-height: 90px; /* Common banner ad height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
 #main-container {
     display: flex;
     align-items: flex-start;
@@ -94,6 +103,7 @@ body {
     min-width: 300px; /* Common square ad width */
     min-height: 250px; /* Common square ad height */
     z-index: 1;
+    overflow: hidden;
 }
 
 #clouds {
