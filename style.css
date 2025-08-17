@@ -5,7 +5,8 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #87CEEB; /* Sky blue */
+    overflow: hidden; /* Hide clouds that move outside the screen */
 }
 
 #game-container {
@@ -14,6 +15,7 @@ body {
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Ensure game container is above the clouds */
 }
 
 #click-button {
@@ -42,4 +44,74 @@ body {
     border: 2px dashed #ccc;
     border-radius: 5px;
     background-color: #fafafa;
+}
+
+#clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.cloud {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    opacity: 0.8;
+    animation: move-clouds 20s linear infinite;
+}
+
+.cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 60px;
+    height: 60px;
+    top: -30px;
+    left: 20px;
+}
+
+.cloud::after {
+    width: 80px;
+    height: 80px;
+    top: -20px;
+    right: 10px;
+}
+
+.cloud:nth-child(1) {
+    top: 20%;
+    left: -100px;
+    transform: scale(0.6);
+    animation-delay: -5s;
+}
+
+.cloud:nth-child(2) {
+    top: 50%;
+    left: -150px;
+    transform: scale(0.8);
+    animation-delay: -10s;
+}
+
+.cloud:nth-child(3) {
+    top: 70%;
+    left: -120px;
+    transform: scale(0.7);
+    animation-delay: 0s;
+}
+
+@keyframes move-clouds {
+    0% {
+        left: -150px;
+    }
+    100% {
+        left: 100%;
+    }
 }
