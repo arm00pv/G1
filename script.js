@@ -4,12 +4,22 @@ const scoreDisplay = document.getElementById('score');
 const resetButton = document.getElementById('reset-button');
 const usernameInput = document.getElementById('username-input');
 const saveUsernameButton = document.getElementById('save-username-button');
-const highscoreTableBody = document.querySelector('#highscore-table tbody');
+const highscoreTableBody = document.querySelector('#highscore-table-daily tbody');
+const registerButton = document.getElementById('register-button');
+const registerModal = document.getElementById('register-modal');
+const closeButton = document.querySelector('#register-modal .close-button');
+const registerForm = document.getElementById('register-form');
+const changeEmojiButton = document.getElementById('change-emoji-button');
+const emojiModal = document.getElementById('emoji-modal');
+const emojiSelection = document.getElementById('emoji-selection');
+const emojiModalCloseButton = document.querySelector('#emoji-modal .close-button');
+const tabsContainer = document.querySelector('.tabs');
 
 let score = 0;
 let timeLeft = 10;
 let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 let username = localStorage.getItem('username') || 'Player';
+let selectedEmoji = '🚀';
 let timer;
 let gameStarted = false;
 
@@ -22,7 +32,10 @@ function saveUsername() {
 }
 
 function renderHighScores() {
-    highscoreTableBody.innerHTML = '';
+    // This function will need to be updated to handle different tabs
+    // For now, it will render to the daily tab
+    const dailyTableBody = document.querySelector('#highscore-table-daily tbody');
+    dailyTableBody.innerHTML = '';
     highScores.forEach((score, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -30,7 +43,7 @@ function renderHighScores() {
             <td>${score.username}</td>
             <td>${score.score}</td>
         `;
-        highscoreTableBody.appendChild(row);
+        dailyTableBody.appendChild(row);
     });
 }
 
@@ -40,7 +53,7 @@ function resetGame() {
     gameStarted = false;
     clearInterval(timer);
     clickButton.disabled = false;
-    clickButton.textContent = '🚀';
+    clickButton.textContent = selectedEmoji;
     scoreDisplay.textContent = score;
     timerDisplay.textContent = timeLeft;
 }
@@ -80,6 +93,65 @@ function checkHighScore() {
     localStorage.setItem('highScores', JSON.stringify(highScores));
     renderHighScores();
 }
+
+// Register Modal functionality
+registerButton.addEventListener('click', () => {
+    registerModal.style.display = 'block';
+});
+
+closeButton.addEventListener('click', () => {
+    registerModal.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target == registerModal) {
+        registerModal.style.display = 'none';
+    }
+    if (event.target == emojiModal) {
+        emojiModal.style.display = 'none';
+    }
+});
+
+registerForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    alert('Registration functionality is not yet implemented.');
+    registerModal.style.display = 'none';
+});
+
+// Emoji Modal functionality
+changeEmojiButton.addEventListener('click', () => {
+    emojiModal.style.display = 'block';
+});
+
+emojiModalCloseButton.addEventListener('click', () => {
+    emojiModal.style.display = 'none';
+});
+
+emojiSelection.addEventListener('click', (event) => {
+    if (event.target.classList.contains('emoji')) {
+        selectedEmoji = event.target.textContent;
+        clickButton.textContent = selectedEmoji;
+        document.querySelectorAll('.emoji').forEach(emoji => emoji.classList.remove('selected'));
+        event.target.classList.add('selected');
+        emojiModal.style.display = 'none';
+    }
+});
+
+// Tabs functionality
+tabsContainer.addEventListener('click', (event) => {
+    if (event.target.classList.contains('tab-button')) {
+        const tab = event.target.dataset.tab;
+        document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+        event.target.classList.add('active');
+        document.querySelectorAll('.tab-pane').forEach(pane => {
+            if (pane.id === tab) {
+                pane.classList.add('active');
+            } else {
+                pane.classList.remove('active');
+            }
+        });
+    }
+});
 
 // Initial setup
 renderHighScores();
